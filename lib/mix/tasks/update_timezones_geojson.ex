@@ -82,7 +82,7 @@ defmodule Mix.Tasks.TzWorld.Update do
   defp start_applications do
     for app <- [:tz_world, :inets, :ssl, :public_key] do
       # Mix.ensure_application!(app)
-      Application.ensure_all_started(app)
+      {:ok, _} = Application.ensure_all_started(app, type: :permanent)
     end
 
     TzWorld.Backend.Memory.start_link()
