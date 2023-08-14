@@ -33,14 +33,15 @@ defmodule Mix.Tasks.TzWorld.Update do
 
       _other ->
         Mix.raise(
-        """
-        Invalid arguments found. `mix tz_world.update` accepts the following:
-          --include-oceans
-          --no-include-oceans (default)
-          --force
-          --no-force (default)
-        """,
-        exit_status: 1)
+          """
+          Invalid arguments found. `mix tz_world.update` accepts the following:
+            --include-oceans
+            --no-include-oceans (default)
+            --force
+            --no-force (default)
+          """,
+          exit_status: 1
+        )
     end
   end
 
@@ -79,12 +80,12 @@ defmodule Mix.Tasks.TzWorld.Update do
   end
 
   defp start_applications do
-    for app <- [:tz_world, :inets, :ssl] do
-      Mix.ensure_application!(app)
+    for app <- [:tz_world, :inets, :ssl, :public_key] do
+      # Mix.ensure_application!(app)
       Application.ensure_all_started(app)
     end
 
-    TzWorld.Backend.Memory.start_link
-    TzWorld.Backend.Dets.start_link
+    TzWorld.Backend.Memory.start_link()
+    TzWorld.Backend.Dets.start_link()
   end
 end
