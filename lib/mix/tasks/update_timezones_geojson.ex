@@ -85,6 +85,8 @@ defmodule Mix.Tasks.TzWorld.Update do
       {:ok, _} = Application.ensure_all_started(app, type: :permanent)
     end
 
+    Code.ensure_all_loaded([:public_key, :http_util])
+
     TzWorld.Backend.Memory.start_link()
     TzWorld.Backend.Dets.start_link()
   end
